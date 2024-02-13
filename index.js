@@ -130,3 +130,12 @@ function addTeamMember(memberType) {
         console.error("Error occurred:", error);
       });
   }
+
+  function finishBuildingTeam() {
+    const html = render(teamMembers);
+    fs.ensureDirSync(OUTPUT_DIR);
+    fs.writeFileSync(outputPath, html);
+    console.log(`Team profile generated at ${outputPath}`);
+  }
+  
+  addManager();
