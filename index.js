@@ -65,3 +65,68 @@ function addManager() {
         console.error("Error occuried:", error);
     });
 }
+
+function addTeamMember(memberType) {
+    const memberQuestions = [
+      {
+        type: "input",
+        name: "name",
+        message: `Enter the ${memberType}'s name:`,
+      },
+      {
+        type: "input",
+        name: "id",
+        message: `Enter the ${memberType}'s employee ID:`,
+      },
+      {
+        type: "input",
+        name: "email",
+        message: `Enter the ${memberType}'s email:`,
+      },
+      {
+        type: "input",
+        name: memberType === "Engineer" ? "github" : "school",
+        message:
+          memberType === "Engineer"
+            ? `Enter the ${memberType}'s GitHub username:`
+            : `Enter the ${memberType}'s school:`,
+      },
+      {
+        type: "list",
+        name: "memberType",
+        message: "Select the type of team member to add:",
+        choices: ["Engineer", "Intern", "Finish building the team"],
+      },
+    ];
+  
+    inquirer
+      .prompt(memberQuestions)
+      .then((answers) => {
+        if (memberType === "Engineer") {
+          const engineer = new Engineer(
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.github
+          );
+          teamMembers.push(engineer);
+        } else {
+          const intern = new Intern(
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.school
+          );
+          teamMembers.push(intern);
+        }
+  
+        if (answers.memberType === "Finish building the team") {
+          finishBuildingTeam();
+        } else {
+          addTeamMember(answers.memberType);
+        }
+      })
+      .catch((error) => {
+        console.error("Error occurred:", error);
+      });
+  }
