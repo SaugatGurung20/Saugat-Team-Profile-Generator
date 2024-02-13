@@ -43,3 +43,25 @@ const questions = [
         choices: ["Engineer", "Intern", "Finish building the team"],
     },
 ];
+
+function addManager() {
+    inquirer
+    .prompt(questions)
+    .then((answers) => {
+        const manager = new Manager(
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.officeNumber
+        );
+        teamMembers.push(manager);
+        if (answers.memberTYPE === "Finish building the team") {
+            finishBuildingTeam();
+        }else {
+            addTeamMember(answers.memberTYPE);
+        }
+    })
+    .catch((error) => {
+        console.error("Error occuried:", error);
+    });
+}
