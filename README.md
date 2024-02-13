@@ -1,1 +1,0 @@
-# Saugat-Team-Profile-Generator
