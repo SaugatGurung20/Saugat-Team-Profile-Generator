@@ -3,7 +3,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
-const fs = require("fs");
+const fs = require("fs-extra");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -55,16 +55,17 @@ function addManager() {
             answers.officeNumber
         );
         teamMembers.push(manager);
-        if (answers.memberTYPE === "Finish building the team") {
+        if (answers.memberType === "Finish building the team") { // Corrected to memberType
             finishBuildingTeam();
-        }else {
-            addTeamMember(answers.memberTYPE);
+        } else {
+            addTeamMember(answers.memberType);
         }
     })
     .catch((error) => {
-        console.error("Error occuried:", error);
+        console.error("Error occurred:", error);
     });
 }
+
 
 function addTeamMember(memberType) {
     const memberQuestions = [
